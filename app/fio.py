@@ -1,5 +1,8 @@
+from collections import defaultdict
+import json
 import logging
 from itertools import product
+import pprint
 from tempfile import NamedTemporaryFile
 import subprocess
 
@@ -55,4 +58,21 @@ def measure(args):
     with open(job_file.name) as f:
         logger.info("Fio config: %s", f.read())
 
-    subprocess.run(["fio", job_file.name, "--output-format=json"])
+    p = subprocess.run(
+        ["fio", job_file.name, "--output-format=json"], capture_output=True
+    )
+    fio_results = json.loads(p.stdout)
+
+    results = defaultdict(lambda: [])
+    pprint.pprint(fio_results)
+
+    for job_result in fio_results["jobs"]:
+        test_type = job_result["job options"]["rw"]
+        if "read" in test_type:
+            clat = job_result["read"]["clat_ns"]["percentile"]["99.900000"]
+        else:
+            clat = job_result["write"]["clat_ns"]["percentile"]["99.900000"]
+        iodpeth = job_result["job options"]["iodepth"]
+        results[test_type].append((iodpeth, clat))
+
+    return results
