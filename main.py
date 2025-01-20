@@ -1,6 +1,7 @@
 import logging
 from argparse import ArgumentParser, FileType
 from app.fio import measure
+from app.plot import plot
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -20,6 +21,8 @@ def main():
     args = parser.parse_args()
     logger.info(args)
     results = measure(args)
+    logger.info(results)
+    plot(results, args.output)
 
 
 if __name__ == "__main__":
