@@ -2,7 +2,6 @@ from collections import defaultdict
 import json
 import logging
 from itertools import product
-import pprint
 from tempfile import NamedTemporaryFile
 import subprocess
 
@@ -64,7 +63,6 @@ def measure(args):
     fio_results = json.loads(p.stdout)
 
     results = defaultdict(lambda: [])
-    pprint.pprint(fio_results)
 
     for job_result in fio_results["jobs"]:
         test_type = job_result["job options"]["rw"]
