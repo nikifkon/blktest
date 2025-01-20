@@ -69,9 +69,9 @@ def measure(args):
     for job_result in fio_results["jobs"]:
         test_type = job_result["job options"]["rw"]
         if "read" in test_type:
-            clat = job_result["read"]["clat_ns"]["percentile"]["99.900000"]
+            clat = job_result["read"]["lat_ns"]["mean"]
         else:
-            clat = job_result["write"]["clat_ns"]["percentile"]["99.900000"]
+            clat = job_result["write"]["lat_ns"]["mean"]
         iodpeth = job_result["job options"]["iodepth"]
         results[test_type].append((iodpeth, clat))
 

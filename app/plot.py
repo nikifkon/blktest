@@ -5,7 +5,7 @@ def plot(results, out_file):
     plot_script = ";".join(
         [
             "set xlabel 'iodepth'",
-            "set ylabel 'clat, ms'",
+            "set ylabel 'lat, ms'",
             "set terminal png",
             "set output '{}'".format(out_file.name),
             "set style data histogram",
@@ -19,10 +19,7 @@ def plot(results, out_file):
     stdin = "\n".join(
         [
             "\n".join(
-                [
-                    "{} {}".format(iodepth, clat_ns // 1_000_000)
-                    for iodepth, clat_ns in data
-                ]
+                ["{} {}".format(iodepth, clat_ns // 1_000) for iodepth, clat_ns in data]
             )
             + "\ne"
             for data in results.values()
