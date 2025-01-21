@@ -25,4 +25,4 @@ def plot(results, out_file):
             for data in results.values()
         ]
     )
-    subprocess.run(["gnuplot", "-e", plot_script], input=stdin.encode() * 2)
+    subprocess.run(["gnuplot", "-e", plot_script], input=stdin.encode())
