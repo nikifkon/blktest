@@ -12,6 +12,9 @@ def main():
     parser.add_argument("-n", "--name", required=True)
     parser.add_argument("-f", "--filename", type=FileType("wb"), required=True)
     parser.add_argument("-o", "--output", type=FileType("wb"), required=True)
+    parser.add_argument(
+        "-d", "--iodepth", nargs="+", type=int, default=[pow(2, x) for x in range(0, 9)]
+    )
     args = parser.parse_args()
     logger.info(args)
     results = measure(args)

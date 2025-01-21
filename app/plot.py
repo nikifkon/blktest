@@ -5,7 +5,7 @@ def plot(results, out_file):
     plot_script = ";".join(
         [
             "set xlabel 'iodepth'",
-            "set ylabel 'lat, ms'",
+            "set ylabel 'Avg lat, us'",
             "set terminal png",
             "set output '{}'".format(out_file.name),
             "set style data histogram",

@@ -51,9 +51,7 @@ def generate_jobs_file(args, types, iodepths):
 
 
 def measure(args):
-    job_file = generate_jobs_file(
-        args, ["randread", "randwrite"], [pow(2, x) for x in range(0, 9)]
-    )
+    job_file = generate_jobs_file(args, ["randread", "randwrite"], args.iodepth)
     with open(job_file.name) as f:
         logger.info("Fio config: %s", f.read())
 
